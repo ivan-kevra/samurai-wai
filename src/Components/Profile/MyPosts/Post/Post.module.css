@@ -1,11 +1,8 @@
-import s from "../MyPosts.module.css";
-import React from "react";
-
-export const Post = () => {
-    return (
-        <div className={s.item}>
-            <img src='https://www.w3schools.com/howto/img_avatar.png'/>
-            post 1
-        </div>
-    )
+.item {
+    color: greenyellow;
+}
+.item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
 }
