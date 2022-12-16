@@ -10,3 +10,9 @@
 .item a.activeLink {
     color: gold;
 }
+.friend img {
+    width: 25px;
+    height: 25px;
+    border-radius: 30px;
+    padding: 10px;
+}

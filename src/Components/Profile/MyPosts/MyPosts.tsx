@@ -1,8 +1,13 @@
 import s from "./MyPosts.module.css";
 import React from "react";
 import {Post} from "./Post/Post";
+import {ProfilePageType} from "../../../redux/State";
 
-export const MyPosts = () => {
+
+export const MyPosts: React.FC<ProfilePageType> = (props) => {
+
+    let postsElements = props.posts.map((p) => <Post post={p.post} likesCount={p.likesCount} id={p.id}/>)
+
     return (
         <div className={s.postsBlock}>
             <h3>my posts</h3>
@@ -13,8 +18,7 @@ export const MyPosts = () => {
                 <button>Add post</button>
             </div>
             <div className={s.posts}>
-                <Post message={'Hi how are you?'} likeCount={15}/>
-                <Post message={'It`s my first post'} likeCount={20}/>
+                {postsElements}
             </div>
         </div>
     )

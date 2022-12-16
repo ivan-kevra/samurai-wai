@@ -1,0 +1,12 @@
+.messages .message  {
+    color: white;
+}
+
+.messages {
+    padding: 10px;
+}
+.message img {
+    width: 25px;
+    height: 25px;
+    border-radius: 30px;
+}

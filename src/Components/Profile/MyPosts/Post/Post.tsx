@@ -1,20 +1,17 @@
 import s from "./Post.module.css";
 import React from "react";
+import {PostType} from "../../../../redux/State";
 
-type MypostPropsType = {
-    message: string
-    likeCount: number
-}
 
-export const Post = (props: MypostPropsType) => {
+export const Post: React.FC<PostType> = (props) => {
     return (
         <div>
             <div className={s.item}>
                 <img src='https://www.w3schools.com/howto/img_avatar.png'/>
-                {props.message}
+                {props.post}
             </div>
             <div>
-                <span>{props.likeCount} likes</span>
+                <span>{props.likesCount} likes</span>
             </div>
         </div>
     )

@@ -8,21 +8,28 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
+import {StateType} from "./redux/State";
+import {Friends} from "./Components/Friends/Friends";
 
+export const App: React.FC<StateType> = (props) => {
 
-export const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/dialogs'}
+                           render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
+                                                  messages={props.state.dialogsPage.messages}/>}/>
+                    <Route path={'/profile'}
+                           render={() => <Profile posts={props.state.profilePage.posts}/>}/>
+
+                    {/*<Route path={'/news'} component={News}/>*/}
+                    {/*<Route path={'/music'} component={Music}/>*/}
+                    {/*<Route path={'/settings'} component={Settings}/>*/}
                 </div>
+
             </div>
         </BrowserRouter>
     );
