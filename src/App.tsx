@@ -8,10 +8,10 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {StateType} from "./redux/State";
 import {Friends} from "./Components/Friends/Friends";
+import {addPost, RootStateType, updateNewPostText} from "./redux/State";
 
-export const App: React.FC<StateType> = (props) => {
+export const App: React.FC<RootStateType> = (props) => {
 
     return (
         <BrowserRouter>
@@ -20,10 +20,15 @@ export const App: React.FC<StateType> = (props) => {
                 <NavBar/>
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'}
-                           render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
-                                                  messages={props.state.dialogsPage.messages}/>}/>
+                           render={() => <Dialogs dialogs={props.dialogsPage.dialogs}
+                                                  messages={props.dialogsPage.messages}/>}/>
                     <Route path={'/profile'}
-                           render={() => <Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
+                           render={() => <Profile
+                               posts={props.profilePage.posts}
+                               addPost={addPost}
+                               newPostText={props.profilePage.newPostText}
+                               updateNewPostText={updateNewPostText}
+                           />}/>
 
                     {/*<Route path={'/news'} component={News}/>*/}
                     {/*<Route path={'/music'} component={Music}/>*/}

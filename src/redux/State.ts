@@ -1,5 +1,8 @@
-import {rerenderEntireTree} from "../render";
-
+let renderEntireTree = (state: RootStateType) => {
+}
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    renderEntireTree = observer
+}
 
 export type MessageType = {
     id: number
@@ -11,12 +14,14 @@ export type DialogType = {
 }
 export type PostType = {
     id: number
-    post: string
+    postMessage: string
     likesCount: number
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    addPost?: (postMessage: string) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (newText: string) => void
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
@@ -25,22 +30,18 @@ export type DialogPageType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
-
-}
-export type StateType = {
-    state: RootStateType
-    addPost?: (postMessage: string) => void
 }
 
 
 let state: RootStateType = {
-    profilePage: {
+    profilePage: <ProfilePageType>{
         posts: [
-            {id: 1, post: 'Hi how are you?', likesCount: 11},
-            {id: 2, post: 'It`s my first post', likesCount: 15},
-            {id: 2, post: 'Bla bla', likesCount: 15},
-            {id: 2, post: 'Da da', likesCount: 15},
+            {id: 1, postMessage: 'Hi how are you?', likesCount: 11},
+            {id: 2, postMessage: 'It`s my first post', likesCount: 15},
+            {id: 2, postMessage: 'Bla bla', likesCount: 15},
+            {id: 2, postMessage: 'Da da', likesCount: 15},
         ],
+        newPostText: ''
     },
     dialogsPage: {
         messages: [
@@ -59,13 +60,17 @@ let state: RootStateType = {
     }
 }
 
-export const addPost = (postMessage: string) => {
-    let newPost = {
-        id: 5,
-        post: postMessage,
-        likesCount: 0}
-    state.profilePage.posts.push(newPost);
-    rerenderEntireTree(state)
+export const addPost = () => {
+    const newPost: PostType = {id: 5, postMessage: state.profilePage.newPostText, likesCount: 11}
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    renderEntireTree(state);
 }
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    renderEntireTree(state)
+}
+
+
 
 export default state;

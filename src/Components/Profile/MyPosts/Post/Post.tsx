@@ -8,7 +8,7 @@ export const Post: React.FC<PostType> = (props) => {
         <div>
             <div className={s.item}>
                 <img src='https://www.w3schools.com/howto/img_avatar.png'/>
-                {props.post}
+                {props.postMessage}
             </div>
             <div>
                 <span>{props.likesCount} likes</span>
