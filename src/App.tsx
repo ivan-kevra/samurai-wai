@@ -1,38 +1,33 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./Components/Header/Header";
-import {NavBar} from "./Components/NavBar/NavBar";
 import {Profile} from "./Components/Profile/Profile";
+import {Navbar} from "./Components/Navbar/Navbar";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {Friends} from "./Components/Friends/Friends";
-import {addPost, RootStateType, updateNewPostText} from "./redux/State";
+import {RootStateType, state} from "./Redux/State";
+import {Sidebar} from "./Components/Sidebar/Sidebar";
 
-export const App: React.FC<RootStateType> = (props) => {
 
+const App: React.FC<RootStateType> = (props) => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <NavBar/>
+                <Navbar/>
+                <Sidebar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'}
-                           render={() => <Dialogs dialogs={props.dialogsPage.dialogs}
-                                                  messages={props.dialogsPage.messages}/>}/>
-                    <Route path={'/profile'}
-                           render={() => <Profile
-                               posts={props.profilePage.posts}
-                               addPost={addPost}
-                               newPostText={props.profilePage.newPostText}
-                               updateNewPostText={updateNewPostText}
-                           />}/>
+                    <Routes>
+                        <Route path='/profile/*' element={<Profile posts={state.profilePage.posts}/>}/>
+                        <Route path='/dialogs/*' element={<Dialogs users={state.messagesPage.users} messages={state.messagesPage.messages} />}/>
+                        <Route path='/news/*' element={<News/>}/>
+                        <Route path='/music/*' element={<Music/>}/>
+                        <Route path='/setting/*' element={<Settings/>}/>
+                    </Routes>
 
-                    {/*<Route path={'/news'} component={News}/>*/}
-                    {/*<Route path={'/music'} component={Music}/>*/}
-                    {/*<Route path={'/settings'} component={Settings}/>*/}
                 </div>
 
             </div>
@@ -40,3 +35,4 @@ export const App: React.FC<RootStateType> = (props) => {
     );
 }
 
+export default App;

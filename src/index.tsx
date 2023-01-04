@@ -1,18 +1,11 @@
-import state, {subscribe} from "./redux/State";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {App} from './App';
-import {RootStateType} from "./redux/State";
+import App from './App';
+import {state} from "./Redux/State";
 
 
-export const renderEntireTree = (state: RootStateType) => {
-    ReactDOM.render(
-        <App dialogsPage={state.dialogsPage} profilePage={state.profilePage} />,
-        document.getElementById('root')
-    );
-}
-
-
-renderEntireTree(state);
-subscribe(renderEntireTree);
+ReactDOM.render(
+    <App profilePage={state.profilePage} messagesPage={state.messagesPage} sidebar={state.sidebar}/>,
+  document.getElementById('root')
+);
