@@ -1,22 +1,21 @@
 import React, {ChangeEvent, useRef} from 'react'
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostsType} from "../../../Redux/State";
+import {ActionsType, addPostAC, PostsType, updateNewPostTextAC} from "../../../Redux/State";
 
-type MessageType = {
+type MyPostsPropsType = {
+    posts: PostsType[]
     newPostText: string
-    posts: Array<PostsType>
-    addPost: (postText: string) => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: ActionsType) => void
 }
-export const MyPosts: React.FC<MessageType> = (props) => {
 
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     const addPostHandler = () => {
-        props.addPost(props.newPostText)
+        props.dispatch(addPostAC(props.newPostText))
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
+        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
 
     return (
@@ -26,8 +25,8 @@ export const MyPosts: React.FC<MessageType> = (props) => {
                 <button onClick={addPostHandler}>Add post</button>
             </div>
             <h2>My posts</h2>
-            {props.posts.map((post) => {
-                return <Post message={post.postMessage} likesCount={post.likesCount}/>
+            {props.posts.map((post, index) => {
+                return <Post key={index} message={post.postMessage} likesCount={post.likesCount}/>
             })}
         </div>
     );

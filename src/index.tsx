@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {RootStateType, state, subscribe} from "./Redux/State";
+import {RootStateType, store} from "./Redux/State";
 
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
-        <App profilePage={state.profilePage}
-             messagesPage={state.messagesPage}
-             sidebar={state.sidebar}
+        <App _state={store.getState()}
+             _callSubscriber={store._callSubscriber}
 
+             getState={store.getState}
+             subscribe={store.subscribe}
+
+             dispatch={store.dispatch.bind(store)}
         />,
         document.getElementById('root')
     );
 }
-rerenderEntireTree(state);
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
+rerenderEntireTree(store.getState());
+
