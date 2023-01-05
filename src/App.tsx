@@ -21,8 +21,11 @@ const App: React.FC<RootStateType> = (props) => {
                 <Sidebar friends={state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route path='/profile/*' element={<Profile posts={state.profilePage.posts}/>}/>
-                        <Route path='/dialogs/*' element={<Dialogs users={state.messagesPage.users} messages={state.messagesPage.messages} />}/>
+                        <Route path='/profile/*' element={<Profile posts={state.profilePage.posts}
+                                                                   newPostText={state.profilePage.newPostText}
+                                                                   />}/>
+                        <Route path='/dialogs/*' element={<Dialogs users={state.messagesPage.users}
+                                                                   messages={state.messagesPage.messages}/>}/>
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/setting/*' element={<Settings/>}/>

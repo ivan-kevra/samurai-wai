@@ -1,3 +1,6 @@
+let rerenderEntireTree = (state: RootStateType) => {
+}
+
 export type MessagesType = {
     id: string
     message: string
@@ -11,6 +14,7 @@ export type FriendsType = {
     name: string
 }
 export type PostsType = {
+    id: number
     postMessage: string
     likesCount: number
 }
@@ -20,7 +24,7 @@ export type MessagesPageType = {
 }
 export type ProfilePageType = {
     posts: PostsType[]
-
+    newPostText: string
 }
 export type SidebarType = {
     friends: FriendsType[]
@@ -34,11 +38,11 @@ export type RootStateType = {
 export let state: RootStateType = {
     profilePage: {
         posts: [
-            {postMessage: 'Hi, how are you', likesCount: 15},
-            {postMessage: 'it`s my first post', likesCount: 20},
-            {postMessage: 'qweewqe', likesCount: 13},
-            {postMessage: '4th', likesCount: 14},
-        ],
+            {id: 1, postMessage: 'Hi, how are you', likesCount: 15},
+            {id: 2, postMessage: 'it`s my first post', likesCount: 20},
+            {id: 3, postMessage: 'qweewqe', likesCount: 13},
+            {id: 4, postMessage: '4th', likesCount: 14},
+        ], newPostText: ''
     },
     messagesPage: {
         users: [
@@ -65,3 +69,20 @@ export let state: RootStateType = {
         ]
     }
 }
+
+
+export const addPost = () => {
+    let newPost = {id: 5, postMessage: state.profilePage.newPostText, likesCount: 23}
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: any) => {
+    rerenderEntireTree = observer
+}
+
