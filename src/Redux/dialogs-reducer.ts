@@ -15,3 +15,9 @@ export const dialogsReducer = (state: MessagesPageType, action: ActionsType) => 
     }
 };
 
+export const addMessageAC = (newMessageText: string) => {
+    return {type: 'SEND-MESSAGE', newMessageText} as const
+}
+export const updateNewMessageTextAC = (newMessage: string) => {
+    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage} as const
+}

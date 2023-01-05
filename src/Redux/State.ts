@@ -1,5 +1,5 @@
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+import {addMessageAC, dialogsReducer, updateNewMessageTextAC} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
 export type MessagesType = {
@@ -43,25 +43,11 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
-
 export type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof updateNewMessageTextAC>
 
-
-export const addPostAC = (newPostText: string) => {
-    return {type: 'ADD-POST', newPostText} as const
-}
-export const updateNewPostTextAC = (newText: string) => {
-    return {type: 'UPDATE-NEW-POST-TEXT', newText} as const
-}
-export const addMessageAC = (newMessageText: string) => {
-    return {type: 'SEND-MESSAGE', newMessageText} as const
-}
-export const updateNewMessageTextAC = (newMessage: string) => {
-    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage} as const
-}
 
 export const store: StoreType = {
     _state: {
